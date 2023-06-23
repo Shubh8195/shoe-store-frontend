@@ -9,7 +9,6 @@ const HeroBanner = () => {
             <Carousel
                 showThumbs={false}
                 autoPlay={true}
-                interval="4000"
                 infiniteLoop={true}
                 showIndicators={false}
                 showStatus={false}
