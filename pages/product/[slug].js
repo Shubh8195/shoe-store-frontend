@@ -3,6 +3,7 @@ import React from 'react'
 import Wrapper from '@/components/layout/Wrapper'
 import { IoMdHeartEmpty } from 'react-icons/io'
 import ProductCarousel from '@/components/ProductCarousel'
+import RelatedProducts from '@/components/RelatedProducts'
 
 const ProductDetail = () => {
     return (
@@ -63,24 +64,27 @@ const ProductDetail = () => {
 
                         {/* Cart & Whishlist Buttons */}
                         <button className='bg-black text-white w-full rounded-full py-4 text-lg mb-4 font-medium transition-transform active:scale-[.95]'>Add to Cart</button>
-                        <button className='border border-black w-full rounded-full py-4 text-lg font-medium transition-transform active:scale-[.95] flex items-center  justify-center gap-1 hover:opacity-75 mb-10'>Whislist <IoMdHeartEmpty size={20}/></button>
-                        
+                        <button className='border border-black w-full rounded-full py-4 text-lg font-medium transition-transform active:scale-[.95] flex items-center  justify-center gap-1 hover:opacity-75 mb-10'>Whislist <IoMdHeartEmpty size={20} /></button>
+
                         {/* Product Description */}
                         <div className='w-full'>
                             <div className='text-lg font-bold mb-5'>
-                            Product Details
+                                Product Details
                             </div>
                             <div className='text-md mb-5'>
-                            "You've got the hops and the speed—lace up in shoes that enhance what you bring to the court. The latest AJ is all about take-offs and landings, with multiple Air units to get you off the ground. The upper is made with strong, reinforced leno-weave fabric that'll keep you contained and leave your game uncompromised. This low-top model is designed for playing on outdoor courts.
+                                "You've got the hops and the speed—lace up in shoes that enhance what you bring to the court. The latest AJ is all about take-offs and landings, with multiple Air units to get you off the ground. The upper is made with strong, reinforced leno-weave fabric that'll keep you contained and leave your game uncompromised. This low-top model is designed for playing on outdoor courts.
                             </div>
                             <div className='text-md mb-5'>
-                            "You've got the hops and the speed—lace up in shoes that enhance what you bring to the court. The latest AJ is all about take-offs and landings, with multiple Air units to get you off the ground. The upper is made with strong, reinforced leno-weave fabric that'll keep you contained and leave your game uncompromised. This low-top model is designed for playing on outdoor courts.
+                                "You've got the hops and the speed—lace up in shoes that enhance what you bring to the court. The latest AJ is all about take-offs and landings, with multiple Air units to get you off the ground. The upper is made with strong, reinforced leno-weave fabric that'll keep you contained and leave your game uncompromised. This low-top model is designed for playing on outdoor courts.
                             </div>
                         </div>
                     </div>
                     {/* Right Column End */}
                 </div>
 
+                <div className='mt-[50px] md:mt-[100px] mb-[100px] md:mb-0'>
+                    <RelatedProducts />
+                </div>
             </Wrapper>
         </div>
     )
