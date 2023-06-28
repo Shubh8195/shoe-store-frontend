@@ -49,7 +49,7 @@ const cart = () => {
                     {/* Summary end */}
                 </div>
 
-<EmptyCart />
+                {/* <EmptyCart /> */}
             </Wrapper>
         </div>
     )

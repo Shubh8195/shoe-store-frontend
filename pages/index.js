@@ -2,8 +2,8 @@ import HeroBanner from "@/components/HeroBanner";
 import ProductCard from "@/components/ProductCard";
 import Wrapper from "@/components/layout/Wrapper";
 
-
 export default function Home() {
+
     return (
         <main className="">
             <HeroBanner />
@@ -28,3 +28,4 @@ export default function Home() {
         </main>
     )
 }
+
