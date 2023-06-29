@@ -7,10 +7,10 @@ const headers = {
 }
 
 export const fetchDataFromAPI = async (endpoint, params) => {
-    const res = await axios.get(API_URL + endpoint, {
+    const { data } = await axios.get(API_URL + endpoint, {
         headers,
         params
     }
     );
-    return res.data;
+    return { data };
 }
