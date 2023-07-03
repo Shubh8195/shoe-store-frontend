@@ -2,24 +2,38 @@ import HeroBanner from "@/components/HeroBanner";
 import ProductCard from "@/components/ProductCard";
 import Wrapper from "@/components/layout/Wrapper";
 import { fetchDataFromAPI } from "@/utils/api";
-import { useEffect, useState } from "react";
+import { QueryClient, dehydrate, useQuery } from "@tanstack/react-query";
+
+export async function getStaticProps() {
+    const queryClient = new QueryClient()
+
+    await queryClient.prefetchQuery(['product'], getProducts)
+
+    return {
+        props: {
+            dehydratedState: dehydrate(queryClient),
+        },
+    }
+}
+
+export const getProducts = async () => {
+    const productData = await fetchDataFromAPI('/products');
+    return productData
+};
 
 export default function Home() {
 
-    const [product, setProduct] = useState(null);
+    const { data, isLoading, isError } = useQuery({
+        queryKey: ['product'],
+        queryFn: getProducts,
+    })
 
-    useEffect(() => {
-        fetchData()
-    }, [product])
-
-    const fetchData = async () => {
-        const {data}  = await fetchDataFromAPI('/products')
-        setProduct(data)
-    }
-
+    // if (isLoading) {
+    //     return <div>Loading...</div>
+    // }
 
     return (
-        <main className="">
+        <main className="" >
             <HeroBanner />
             <Wrapper >
                 <div className="text-center max-w-[800px] mx-auto my-[50px] md:my-[80px]">

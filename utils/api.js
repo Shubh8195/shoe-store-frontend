@@ -12,5 +12,5 @@ export const fetchDataFromAPI = async (endpoint, params) => {
         params
     }
     );
-    return { data };
+    return data;
 }
