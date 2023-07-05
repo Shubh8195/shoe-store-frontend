@@ -1,36 +1,26 @@
 import HeroBanner from "@/components/HeroBanner";
 import ProductCard from "@/components/ProductCard";
 import Wrapper from "@/components/layout/Wrapper";
-import { fetchDataFromAPI } from "@/utils/api";
-import { QueryClient, dehydrate, useQuery } from "@tanstack/react-query";
+import { fetchDataFromAPI } from "@/utils/axios";
+import { QueryClient, useQuery } from "@tanstack/react-query";
 
-export async function getStaticProps() {
-    const queryClient = new QueryClient()
+import { dehydrate } from '@tanstack/react-query'
+import { useEffect } from "react";
 
-    await queryClient.prefetchQuery(['product'], getProducts)
-
-    return {
-        props: {
-            dehydratedState: dehydrate(queryClient),
-        },
-    }
-}
-
-export const getProducts = async () => {
-    const productData = await fetchDataFromAPI('/products');
+const getProducts = async () => {
+    const productData = await fetchDataFromAPI('/products?populate=*');
     return productData
 };
 
-export default function Home() {
-
-    const { data, isLoading, isError } = useQuery({
+const Home = () => {
+    const { data, isLoading, isError, isFetching } = useQuery({
         queryKey: ['product'],
         queryFn: getProducts,
     })
 
-    // if (isLoading) {
-    //     return <div>Loading...</div>
-    // }
+    if (isLoading) {
+        return <div>Loading...</div>
+    }
 
     return (
         <main className="" >
@@ -57,3 +47,16 @@ export default function Home() {
     )
 }
 
+export default Home
+
+export async function getStaticProps() {
+    const queryClient = new QueryClient()
+
+    await queryClient.prefetchQuery(['product'], getProducts)
+
+    return {
+        props: {
+            dehydratedState: dehydrate(queryClient),
+        },
+    }
+}
