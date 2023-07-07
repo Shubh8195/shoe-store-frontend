@@ -40,7 +40,7 @@ const Header = () => {
         <header className={`w-full h-[50px] md:h-[80px] bg-white flex items-center justify-between z-20 sticky top-0 transition-transform duration-300 ${show}  `}>
             <Wrapper className="h-[60px] flex justify-between items-center">
                 <Link href='/'>
-                    <img src='/assets/logo.svg' className='w-[50px] md:w-[80px]' />
+                    <img src='/assets/logo.svg' className='w-[50px] md:w-[80px]' alt="logo" />
                 </Link>
 
                 <Menu
