@@ -5,7 +5,6 @@ import { fetchDataFromAPI } from "@/utils/axios";
 import { QueryClient, useQuery } from "@tanstack/react-query";
 
 import { dehydrate } from '@tanstack/react-query'
-import { useEffect } from "react";
 
 const getProducts = async () => {
     const productData = await fetchDataFromAPI('/products?populate=*');
@@ -13,7 +12,7 @@ const getProducts = async () => {
 };
 
 const Home = () => {
-    const { data, isLoading, isError, isFetching } = useQuery({
+    const { data: products, isLoading, isError, isFetching } = useQuery({
         queryKey: ['product'],
         queryFn: getProducts,
     })
@@ -32,15 +31,10 @@ const Home = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 px-5 md:px-0 pb-5 my-14">
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
+                    {products?.data.map((product) => ( 
+                        <ProductCard key={product?.id} data={product}/>
+                    ))}
+
                 </div>
             </Wrapper>
         </main>
