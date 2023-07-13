@@ -29,13 +29,13 @@ const RelatedProducts = () => {
                 You Might Also Like
             </div>
             <Carousel responsive={responsive} containerClass="-mx-[10px]" itemClass='px-[10px] '>
+                {/* <ProductCard />
                 <ProductCard />
                 <ProductCard />
                 <ProductCard />
                 <ProductCard />
                 <ProductCard />
-                <ProductCard />
-                <ProductCard />
+                <ProductCard /> */}
             </Carousel>
         </>
     )
