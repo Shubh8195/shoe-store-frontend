@@ -6,6 +6,7 @@ import { QueryClient, useQuery } from "@tanstack/react-query";
 
 import { dehydrate } from '@tanstack/react-query'
 
+
 const getProducts = async () => {
     const productData = await fetchDataFromAPI('/products?populate=*');
     return productData

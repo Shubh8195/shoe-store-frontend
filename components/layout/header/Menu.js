@@ -9,13 +9,13 @@ const data = [
     { id: 4, name: "Contact", url: "/contact" },
 ];
 
-const subMenuData = [
-    { id: 1, name: "Jordan", doc_count: 11 },
-    { id: 2, name: "Sneakers", doc_count: 8 },
-    { id: 3, name: "Running shoes", doc_count: 64 },
-    { id: 4, name: "Football shoes", doc_count: 107 },
-];
-const Menu = ({ showCatMenu, setShowCatMenu }) => {
+// const subMenuData = [
+//     { id: 1, name: "Jordan", doc_count: 11 },
+//     { id: 2, name: "Sneakers", doc_count: 8 },
+//     { id: 3, name: "Running shoes", doc_count: 64 },
+//     { id: 4, name: "Football shoes", doc_count: 107 },
+// ];
+const Menu = ({ showCatMenu, setShowCatMenu, categories }) => {
     return (
         <ul className='hidden md:flex gap-8 text-black font-medium items-center'>
             {data?.map((item) => {
@@ -36,10 +36,10 @@ const Menu = ({ showCatMenu, setShowCatMenu }) => {
                                 <BsChevronDown size={14} />
                                 {showCatMenu && (
                                     <ul className='bg-white absolute top-6 left-0 min-w-[250px] px-1 py-1 text-black shadow-lg'>
-                                        {subMenuData.map((subMenu) => (
-                                            <Link href="/" key={subMenu.id} onClick={() =>setShowCatMenu(false) }>
-                                                <li className='flex justify-between h-12 items-center px-3 hover:bg-black/[0.03] rounded-md'>{subMenu.name}
-                                                    <span className='opacity-50 text-sm'>78</span>
+                                        {categories?.map(({ attributes: c, id }) => (
+                                            <Link href={`/category/${c.slug}`} key={id} onClick={() => setShowCatMenu(false)}>
+                                                <li className='flex justify-between h-12 items-center px-3 hover:bg-black/[0.03] rounded-md'>{c.name}
+                                                    <span className='opacity-50 text-sm'>{`(${c?.products?.data?.length})`}</span>
                                                 </li>
                                             </Link>
                                         ))}
