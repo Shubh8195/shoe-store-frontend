@@ -1,4 +1,5 @@
 import HeroBanner from "@/components/HeroBanner";
+import Loading from "@/components/Loading";
 import ProductCard from "@/components/ProductCard";
 import Wrapper from "@/components/layout/Wrapper";
 import { fetchDataFromAPI } from "@/utils/axios";
@@ -12,14 +13,15 @@ const getProducts = async () => {
     return productData
 };
 
+
 const Home = () => {
-    const { data: products, isLoading, isError, isFetching } = useQuery({
+    const { data: products, isLoading } = useQuery({
         queryKey: ['product'],
         queryFn: getProducts,
     })
-
+       console.log(products); 
     if (isLoading) {
-        return <div>Loading...</div>
+        return <Loading />
     }
 
     return (
