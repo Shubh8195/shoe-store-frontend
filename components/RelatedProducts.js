@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import ProductCard from './ProductCard';
+import { useRouter } from 'next/router';
 
 const responsive = {
     superLargeDesktop: {
@@ -22,20 +23,16 @@ const responsive = {
         items: 1
     }
 };
-const RelatedProducts = () => {
+const RelatedProducts = ({ products }) => {
     return (
         <>
             <div className='text-2xl font-bold mb-5'>
                 You Might Also Like
             </div>
-            <Carousel responsive={responsive} containerClass="-mx-[10px]" itemClass='px-[10px] '>
-                {/* <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard /> */}
+            <Carousel responsive={responsive} containerClass="-mx-[10px]" itemClass='px-[10px]'>
+                {products?.map((product) => (
+                    <ProductCard key={product?.id} data={product} />
+                ))}
             </Carousel>
         </>
     )

@@ -6,22 +6,31 @@ import { Hydrate } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 import Head from 'next/head'
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
+import { Provider as ReduxProvider } from 'react-redux'
+import { store } from '@/store/store'
+import { ToastContainer } from 'react-toastify'
 
 export default function App({ Component, pageProps }) {
 
   return (
     <>
-      <Head> 
+      <Head>
         <title>Online Shoe Store</title>
         <meta name="description" content="Online Shoe Store" />
         <meta name="viewport" content="initial-scale=1" />
       </Head>
       <Providers >
         <Hydrate state={pageProps.dehydratedState}>
-          <Header />
-          <Component {...pageProps} />
-          <Footer />
+          <ReduxProvider store={store}>
+            <Header />
+            <Component {...pageProps} />
+            <Footer />
+            <ToastContainer
+              position="bottom-right"
+              theme="dark"
+            />
+          </ReduxProvider>
           <ReactQueryDevtools />
         </Hydrate>
       </Providers>

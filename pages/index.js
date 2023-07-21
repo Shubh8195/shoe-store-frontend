@@ -15,11 +15,12 @@ const getProducts = async () => {
 
 
 const Home = () => {
+
     const { data: products, isLoading } = useQuery({
         queryKey: ['product'],
         queryFn: getProducts,
     })
-       console.log(products); 
+     
     if (isLoading) {
         return <Loading />
     }

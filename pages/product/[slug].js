@@ -7,6 +7,13 @@ import RelatedProducts from '@/components/RelatedProducts'
 import { fetchDataFromAPI } from '@/utils/axios'
 import { useQuery } from '@tanstack/react-query'
 import { discountedPrice } from '@/utils/helper'
+import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
+
+import { useDispatch, useSelector } from 'react-redux'
+import { addProduct } from '@/store/cartSlice'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from 'next/router'
 
 const getProduct = async (slug) => {
     const product = await fetchDataFromAPI(`/products?populate=*&filters[slug][$eq]=${slug}`);
@@ -14,24 +21,36 @@ const getProduct = async (slug) => {
 };
 
 const ProductDetail = ({ product, slug, relatedProducts }) => {
+    const {query} = useRouter();
     const [selectedSize, setSelectedSize] = useState();
     const [showError, setShowError] = useState(false);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        setSelectedSize("")
+        setShowError(false)
+    },[query])
+
     const { data: productDetail, isLoading } = useQuery({
         queryKey: [`product=${slug}`],
         queryFn: () => getProduct(slug),
         initialData: product,
     })
 
-    const { categories } = productDetail[0].attributes;
-    const { size } = productDetail[0].attributes;
+    const p = productDetail[0]?.attributes
 
     const sizeSelectionError = () => {
-
         if (!selectedSize) {
+            document.getElementById("sizeGrid").scrollIntoView({
+                block: "center",
+                behavior: "smooth"
+            })
             setShowError(true)
             return
         }
         setShowError(false)
+        dispatch(addProduct({ ...productDetail[0], selectedSize, oneQuantityPrice: p?.price }))
+        toast.success('Product added to the cart')
     }
     return (
         <div className='w-full md:py-20'>
@@ -39,7 +58,7 @@ const ProductDetail = ({ product, slug, relatedProducts }) => {
                 <div className='flex flex-col lg:flex-row md:px-10 gap-[50px] lg:gap-[100px]'>
                     {/* Left Column Start */}
                     <div className='w-full md:w-auto flex-[1.5] max-w-[500px] md:min-w-[500px] lg:max-w-[700px] mx-auto lg:mx-0'>
-                        <ProductCarousel data={productDetail[0]?.attributes?.image} />
+                        <ProductCarousel data={p?.image} />
                     </div>
                     {/* Left Column End */}
 
@@ -48,23 +67,28 @@ const ProductDetail = ({ product, slug, relatedProducts }) => {
                     <div className='flex-[1] py-3'>
                         {/* Product Title */}
                         <div className='text-[34px] font-semibold leading-tight mb-5'>
-                            {productDetail[0]?.attributes.name}
+                            {p?.name}
                         </div>
 
                         {/* Product SubTitle */}
                         <div className='text-lg font-semibold leading-tight mb-5'>
-                            {categories?.data?.map((c) =>
-                                <span key={c.id} className="bg-green-100 text-green-800 text-base font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400">{c.attributes.name}</span>
+                            {p?.subtitle}
+                        </div>
+
+                        {/* Product Categories */}
+                        <div className='text-lg font-semibold leading-tight mb-5'>
+                            {p?.categories?.data?.map((c) =>
+                                <span key={c.id} className="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400">{c.attributes.name}</span>
                             )}
                         </div>
 
                         {/* Product Price */}
                         <div className='flex items-center'>
                             <p className='mr-2 text-lg font-semibold'>MRP : ₹{productDetail[0]?.attributes.price} </p>
-                            {productDetail[0]?.attributes.orignal_price &&
+                            {p?.orignal_price &&
                                 <React.Fragment>
                                     <p className='text-lg line-through font-medium'> ₹{productDetail[0]?.attributes.orignal_price}</p>
-                                    <p className='text-green-500 font-medium ml-auto'>{discountedPrice(productDetail[0]?.attributes.orignal_price, productDetail[0]?.attributes.price)}% off</p>
+                                    <p className='text-green-500 font-medium ml-auto'>{discountedPrice(p?.orignal_price, p?.price)}% off</p>
                                 </React.Fragment>
                             }
                         </div>
@@ -72,13 +96,13 @@ const ProductDetail = ({ product, slug, relatedProducts }) => {
                         <div className='text-lg font-medium text-gray-400 mb-20'>{`(Also includes all applicable duties)`}</div>
 
                         {/* Product Sizes */}
-                        <div className='mb-10'>
+                        <div id="sizeGrid" className='mb-10'>
                             <div className='flex justify-between mb-2 '>
                                 <p className='text-lg font-semibold'>Select Sizes</p>
                                 <p className='text-lg font-medium text-black/[0.5] cursor-pointer'>Select Guide</p>
                             </div>
                             <div className='grid grid-cols-3 gap-2'>
-                                {size.data.map((p, index) =>
+                                {p?.size?.data.map((p, index) =>
                                     <button
                                         key={index}
                                         onClick={() => {
@@ -105,8 +129,10 @@ const ProductDetail = ({ product, slug, relatedProducts }) => {
                             <div className='text-lg font-bold mb-5'>
                                 Product Details
                             </div>
-                            <div className='text-md mb-5'>
-                                {productDetail[0]?.attributes.description}
+                            <div className='markdown text-md mb-5'>
+                                <ReactMarkdown>
+                                    {p?.description}
+                                </ReactMarkdown>
                             </div>
                         </div>
                     </div>
@@ -114,10 +140,11 @@ const ProductDetail = ({ product, slug, relatedProducts }) => {
                 </div>
 
                 <div className='mt-[50px] md:mt-[100px] mb-[100px] md:mb-0'>
-                    {/* <RelatedProducts data={relatedProducts} /> */}
+                    <RelatedProducts products={relatedProducts} />
                 </div>
             </Wrapper >
         </div >
+
     )
 }
 
