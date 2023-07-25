@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Wrapper from "@/components/layout/Wrapper";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { clearCart } from "@/store/cartSlice";
+import { toast } from "react-toastify";
 
 const Success = () => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        toast.success("Your order placed successfully")
+        dispatch(clearCart())
+    }, [])
     return (
         <div className="min-h-[650px] flex items-center">
             <Wrapper>

@@ -12,7 +12,6 @@ import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart } from '@/store/cartSlice'
 import { toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router'
 
 const getProduct = async (slug) => {

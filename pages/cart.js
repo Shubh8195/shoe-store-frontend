@@ -5,6 +5,7 @@ import EmptyCart from '@/components/EmptyCart'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearCart } from '@/store/cartSlice'
 import { toast } from 'react-toastify'
+
 import { loadStripe } from '@stripe/stripe-js'
 import { makePaymentRequest } from '@/utils/axios'
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
@@ -19,7 +20,7 @@ const cart = () => {
     }, [cartItem])
 
     const handlePayment = async () => {
-        const payload= {
+        const payload = {
             products: cartItem
         }
         try {
@@ -82,9 +83,10 @@ const cart = () => {
                                     </div>
                                     {/* Button Start */}
                                     <button
-                                    onClick={handlePayment} 
-                                    className='bg-black text-white w-full rounded-full py-4 text-lg mb-4 font-medium transition-transform active:scale-[.95]'>Checkout
-                                    {loading && <img src='/assets/spinner.svg'></img>}
+                                        onClick={handlePayment}
+                                        className='bg-black text-white w-full rounded-full py-4 text-lg mb-4 font-medium transition-transform active:scale-[.95] flex flex-row items-center justify-center'>
+                                        Checkout
+                                        {loading && <img src='/assets/spinner.svg'></img>}
                                     </button>
                                     {/* Button End */}
                                 </div>
