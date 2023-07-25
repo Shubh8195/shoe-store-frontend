@@ -10,7 +10,7 @@ import { discountedPrice } from '@/utils/helper'
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { addProduct } from '@/store/cartSlice'
+import { addToCart } from '@/store/cartSlice'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router'
@@ -49,7 +49,7 @@ const ProductDetail = ({ product, slug, relatedProducts }) => {
             return
         }
         setShowError(false)
-        dispatch(addProduct({ ...productDetail[0], selectedSize, oneQuantityPrice: p?.price }))
+        dispatch(addToCart({ ...productDetail[0], selectedSize, oneQuantityPrice: p?.price }))
         toast.success('Product added to the cart')
     }
     return (

@@ -2,10 +2,10 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
-const emptyCart = () => {
+const EmptyCart = () => {
     return (
         <div className='flex flex-col items-center pb-[50px] md:-mt-14'>
-            <Image src='/assets/empty-cart.jpg' width={300} height={300} className='w-[300px] md:w-[400px]' />
+            <Image src='/assets/empty-cart.jpg' width={300} height={300} className='w-[300px] md:w-[400px]' alt="empty_cart" />
             <span className='text-lg md:text-xl font-bold mb-5'>Your cart is empty</span>
             <span className='text-md  text-center'>
                 Looks like you have not added anything in your cart.
@@ -15,4 +15,4 @@ const emptyCart = () => {
         </div>
     )
 }
-export default emptyCart
+export default EmptyCart

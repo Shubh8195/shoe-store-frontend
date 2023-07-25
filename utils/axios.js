@@ -13,3 +13,11 @@ export const fetchDataFromAPI = async (endpoint, params) => {
     })
     return data;
 }
+
+
+export const makePaymentRequest = async (endpoint, payload) => {
+    const { data } = await axios.post(API_URL + endpoint , payload , {
+        headers
+    })
+    return data;
+}
