@@ -11,7 +11,7 @@ import { makePaymentRequest } from '@/utils/axios'
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
 
-const cart = () => {
+const Cart = () => {
     const [loading, setLoading] = useState(false)
     const cartItem = useSelector((state) => state.cart.cartItems)
     const dispatch = useDispatch();
@@ -86,7 +86,7 @@ const cart = () => {
                                         onClick={handlePayment}
                                         className='bg-black text-white w-full rounded-full py-4 text-lg mb-4 font-medium transition-transform active:scale-[.95] flex flex-row items-center justify-center'>
                                         Checkout
-                                        {loading && <img src='/assets/spinner.svg'></img>}
+                                        {loading && <img src='/assets/spinner.svg' alt="spinner" />}
                                     </button>
                                     {/* Button End */}
                                 </div>
@@ -102,4 +102,4 @@ const cart = () => {
         </div>
     )
 }
-export default cart
+export default Cart

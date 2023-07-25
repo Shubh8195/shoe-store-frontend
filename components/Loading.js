@@ -1,5 +1,3 @@
-import Image from "next/image"
-
 const Loading = () => {
     return (
         <div className="w-full h-screen bg-white/[0.5] flex flex-col gap-5 justify-center items-center">

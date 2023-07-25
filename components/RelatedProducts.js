@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import ProductCard from './ProductCard';
-import { useRouter } from 'next/router';
 
 const responsive = {
     superLargeDesktop: {
