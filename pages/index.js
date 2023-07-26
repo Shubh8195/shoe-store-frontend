@@ -19,6 +19,7 @@ const Home = () => {
     const { data: products, isLoading } = useQuery({
         queryKey: ['product'],
         queryFn: getProducts,
+        enabled: false
     })
      
     if (isLoading) {
