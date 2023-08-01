@@ -5,10 +5,10 @@ import { discountedPrice } from "@/utils/helper";
 
 const ProductCard = ({ data: { attributes: p, id } }) => {
     return (
-        <Link 
-        prefetch={false}
-        href={`/product/${p?.slug}`}
-    className="transform overflow-hidden bg-white duration-200 hover:scale-105 cursor-pointer">
+        <Link
+            href={`/product/${p?.slug}`}
+            prefetch={false}
+            className="transform overflow-hidden bg-white duration-200 hover:scale-105 cursor-pointer">
             <Image src={p?.thumbnail?.data?.attributes?.url} width={500} height={500} alt={p?.name} />
             <div className="p-4 text-black/[0.9]">
                 <h2 className="text-lg font-medium">{p?.name}</h2>

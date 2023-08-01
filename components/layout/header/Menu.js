@@ -23,7 +23,7 @@ const Menu = ({ showCatMenu, setShowCatMenu, categories }) => {
                     <React.Fragment key={item.id}>
                         {!item.subMenu ? (
                             <li className="cursor-pointer" >
-                                <Link href={item.url}>
+                                <Link href={item.url} prefetch={false}>
                                     {item.name}
                                 </Link>
                             </li>
@@ -37,7 +37,7 @@ const Menu = ({ showCatMenu, setShowCatMenu, categories }) => {
                                 {showCatMenu && (
                                     <ul className='bg-white absolute top-6 left-0 min-w-[250px] px-1 py-1 text-black shadow-lg'>
                                         {categories?.map(({ attributes: c, id }) => (
-                                            <Link href={`/category/${c.slug}`} key={id} onClick={() => setShowCatMenu(false)}>
+                                            <Link href={`/category/${c.slug}`} prefetch={false} key={id} onClick={() => setShowCatMenu(false)}>
                                                 <li className='flex justify-between h-12 items-center px-3 hover:bg-black/[0.03] rounded-md'>{c.name}
                                                     <span className='opacity-50 text-sm'>{`(${c?.products?.data?.length})`}</span>
                                                 </li>

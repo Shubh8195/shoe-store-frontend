@@ -23,7 +23,7 @@ const MobileMenu = ({ showCatMenu, setShowCatMenu, setMobileMenu, categories }) 
                     <React.Fragment key={item.id}>
                         {!item.subMenu ? (
                             <li className="flex flex-col py-5 px-5 border-b" >
-                                <Link href={item.url} onClick={() => setMobileMenu(false)}>
+                                <Link href={item.url} prefetch={false} onClick={() => setMobileMenu(false)}>
                                     {item.name}
                                 </Link>
                             </li>
@@ -38,7 +38,7 @@ const MobileMenu = ({ showCatMenu, setShowCatMenu, setMobileMenu, categories }) 
                                 {showCatMenu && (
                                     <ul className='bg-black/[0.05] -mx-5 mt-4 -mb-4'>
                                         {categories.map(({attributes : c, id}) => (
-                                            <Link href={`/category/${c.slug}`} key={id} onClick={() => {
+                                            <Link prefetch={false} href={`/category/${c.slug}`} key={id} onClick={() => {
                                                 setShowCatMenu(false)
                                                 setMobileMenu(false)
                                             }}>
