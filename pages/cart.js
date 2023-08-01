@@ -13,6 +13,7 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
 
 
 const Cart = () => {
+    const router = useRouter();
     useEffect(() => {
         const prefetch = router.prefetch
         router.prefetch = async () => { }
