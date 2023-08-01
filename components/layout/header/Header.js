@@ -84,7 +84,7 @@ const Header = () => {
                         <div className='h-[14px] md:h-[18px] min-w-[14px] md:min-w-[18px] rounded-full bg-red-600 absolute top-1 left-5 md:left-7 text-white
                         text-[10px] md:text-[12px] flex items-center justify-center px-[2px] md:px-[2px]'>5</div>
                     </div>
-                    <Link href="/cart" prefetch={false}>
+                    <Link href="/cart" prefetch={false}  passHref={false}>
                         <div className='w-8 md:w-12 h-8 md:h-12 flex rounded-full justify-center items-center hover:bg-black/[0.05] cursor-pointer relative'>
                             <BsCart className='text-[15px] md:text-[20px]' />
                             {cartItemLength > 0 &&

@@ -23,7 +23,7 @@ const Menu = ({ showCatMenu, setShowCatMenu, categories }) => {
                     <React.Fragment key={item.id}>
                         {!item.subMenu ? (
                             <li className="cursor-pointer" >
-                                <Link href={item.url} prefetch={false}>
+                                <Link href={item.url} prefetch={false} prefetch={false}>
                                     {item.name}
                                 </Link>
                             </li>
