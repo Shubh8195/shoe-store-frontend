@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState, useEffect } from 'react'
 import Wrapper from '@/components/layout/Wrapper'
 import CartItem from '@/components/CartItem'
 import EmptyCart from '@/components/EmptyCart'
