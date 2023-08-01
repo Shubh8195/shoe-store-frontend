@@ -5,6 +5,7 @@ import EmptyCart from '@/components/EmptyCart'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearCart } from '@/store/cartSlice'
 import { toast } from 'react-toastify'
+import { useRouter } from "next/router";
 
 import { loadStripe } from '@stripe/stripe-js'
 import { makePaymentRequest } from '@/utils/axios'
@@ -12,6 +13,12 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
 
 
 const Cart = () => {
+    useEffect(() => {
+        const prefetch = router.prefetch
+        router.prefetch = async () => { }
+        return () => { router.prefetch = prefetch }
+      }, [router])
+
     const [loading, setLoading] = useState(false)
     const cartItem = useSelector((state) => state.cart.cartItems)
     const dispatch = useDispatch();

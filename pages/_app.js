@@ -10,13 +10,8 @@ import { Provider as ReduxProvider } from 'react-redux'
 import { store } from '@/store/store'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-import { useRouter } from "next/router";
 
 export default function App({ Component, pageProps }) {
-  const router = useRouter()
-  useEffect(() => {
-    router.prefetch = async () => { }
-  }, [router])
   return (
     <>
       <Head>
