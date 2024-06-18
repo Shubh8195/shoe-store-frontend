@@ -5,7 +5,6 @@ import EmptyCart from '@/components/EmptyCart'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearCart } from '@/store/cartSlice'
 import { toast } from 'react-toastify'
-import { useRouter } from "next/router";
 
 import { loadStripe } from '@stripe/stripe-js'
 import { makePaymentRequest } from '@/utils/axios'

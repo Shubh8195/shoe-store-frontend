@@ -5,7 +5,7 @@ import Providers from '@/utils/providers'
 import { Hydrate } from '@tanstack/react-query'
 
 import Head from 'next/head'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Provider as ReduxProvider } from 'react-redux'
 import { store } from '@/store/store'
 import { ToastContainer } from 'react-toastify'

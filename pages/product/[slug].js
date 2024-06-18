@@ -9,7 +9,7 @@ import { useQuery } from '@tanstack/react-query'
 import { discountedPrice } from '@/utils/helper'
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
 
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { addToCart } from '@/store/cartSlice'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
