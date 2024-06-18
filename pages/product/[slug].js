@@ -20,7 +20,7 @@ const getProduct = async (slug) => {
 };
 
 const ProductDetail = ({ product, slug, relatedProducts }) => {
-    const {query} = useRouter();
+    const { query } = useRouter();
     const [selectedSize, setSelectedSize] = useState();
     const [showError, setShowError] = useState(false);
     const dispatch = useDispatch();
@@ -28,7 +28,7 @@ const ProductDetail = ({ product, slug, relatedProducts }) => {
     useEffect(() => {
         setSelectedSize("")
         setShowError(false)
-    },[query])
+    }, [query])
 
     const { data: productDetail, isLoading } = useQuery({
         queryKey: [`product=${slug}`],

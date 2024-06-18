@@ -13,13 +13,6 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
 
 
 const Cart = () => {
-    const router = useRouter();
-    useEffect(() => {
-        const prefetch = router.prefetch
-        router.prefetch = async () => { }
-        return () => { router.prefetch = prefetch }
-      }, [router])
-
     const [loading, setLoading] = useState(false)
     const cartItem = useSelector((state) => state.cart.cartItems)
     const dispatch = useDispatch();
