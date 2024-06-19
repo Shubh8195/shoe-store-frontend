@@ -12,7 +12,7 @@ const ProductCarousel = ({ data }) => {
                 thumbWidth={60}
                 className='productCarousel'
             >
-                {data.data.map((p) =>
+                {data?.data.map((p) =>
                     <img key={p.id} src={p.attributes.url} alt="p1" />
                 )}
 

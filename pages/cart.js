@@ -95,7 +95,7 @@ const Cart = () => {
                         </React.Fragment>
                     ) :
                     (
-                        <EmptyCart />
+                        <EmptyCart page={"cart"} />
                     )
                 }
             </Wrapper>

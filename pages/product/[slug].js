@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import Wrapper from '@/components/layout/Wrapper'
-import { IoMdHeartEmpty } from 'react-icons/io'
+import { IoMdHeart, IoMdHeartEmpty } from 'react-icons/io'
 import ProductCarousel from '@/components/ProductCarousel'
 import RelatedProducts from '@/components/RelatedProducts'
 import { fetchDataFromAPI } from '@/utils/axios'
@@ -13,6 +13,8 @@ import { useDispatch } from 'react-redux'
 import { addToCart } from '@/store/cartSlice'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
+import { addToWishlist, removeFromWishlist } from '@/store/wishlistSlice'
+import { useWishlistExist } from '@/hooks/useWishlistExist'
 
 const getProduct = async (slug) => {
     const product = await fetchDataFromAPI(`/products?populate=*&filters[slug][$eq]=${slug}`);
@@ -23,6 +25,8 @@ const ProductDetail = ({ product, slug, relatedProducts }) => {
     const { query } = useRouter();
     const [selectedSize, setSelectedSize] = useState();
     const [showError, setShowError] = useState(false);
+    const [wishlist, setWishlist] = useWishlistExist(product[0].id);
+    console.log(wishlist);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -50,6 +54,18 @@ const ProductDetail = ({ product, slug, relatedProducts }) => {
         setShowError(false)
         dispatch(addToCart({ ...productDetail[0], selectedSize, oneQuantityPrice: p?.price }))
         toast.success('Product added to the cart')
+    }
+
+    const wishlistHandler = () => {
+        if (!wishlist) {
+            dispatch(addToWishlist(productDetail[0]))
+            setWishlist(true)
+            toast.success("Added to your wishlist")
+        } else {
+            dispatch(removeFromWishlist(productDetail[0].id))
+            setWishlist(false)
+            toast.error("Remove from your wishlist")
+        }
     }
     return (
         <div className='w-full md:py-20'>
@@ -121,7 +137,18 @@ const ProductDetail = ({ product, slug, relatedProducts }) => {
                         <button
                             onClick={sizeSelectionError}
                             className='bg-black text-white w-full rounded-full py-4 text-lg mb-4 font-medium transition-transform active:scale-[.95]' >Add to Cart</button>
-                        <button className='border border-black w-full rounded-full py-4 text-lg font-medium transition-transform active:scale-[.95] flex items-center  justify-center gap-1 hover:opacity-75 mb-10'>Whislist <IoMdHeartEmpty size={20} /></button>
+                        <button
+                            onClick={wishlistHandler}
+                            className='border border-black w-full rounded-full py-4 text-lg font-medium transition-transform active:scale-[.95] flex items-center  justify-center gap-1 hover:opacity-75 mb-10'>Whislist
+                            {wishlist ? (
+                                <IoMdHeart
+                                    className="text-[19px] md:text-[24px] text-red-500"
+                                />
+                            ) : (
+                                <IoMdHeartEmpty
+                                    className={`text-[19px] md:text-[24px]`}
+                                />
+                            )}</button>
 
                         {/* Product Description */}
                         <div className='w-full'>

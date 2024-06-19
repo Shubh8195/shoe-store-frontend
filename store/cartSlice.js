@@ -1,5 +1,5 @@
 
-import Storage from "@/utils/storage";
+import { CartStorage } from "@/utils/storage";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -12,18 +12,19 @@ export const cartSlice = createSlice({
     reducers: {
         localCartItem: (state, action) => {
             if (action.payload) {
-                state.cartItems = Storage.getCartItems()
+                state.cartItems = CartStorage.getCartItems()
             }
         },
         addToCart: (state, action) => {
             const item = state.cartItems.find((p) => p.id === action.payload.id)
+            console.log(item);
             if (item) {
                 item.quantity++
                 item.attributes.price = item.oneQuantityPrice * item.quantity
-                Storage.setCartItems(state.cartItems)
+                CartStorage.setCartItems(state.cartItems)
             } else {
                 state.cartItems.push({ ...action.payload, quantity: 1 })
-                Storage.setCartItems(state.cartItems)
+                CartStorage.setCartItems(state.cartItems)
             }
         },
         updateCart: (state, action) => {
@@ -36,21 +37,21 @@ export const cartSlice = createSlice({
                 }
                 return p
             })
-            Storage.setCartItems(state.cartItems)
+            CartStorage.setCartItems(state.cartItems)
         },
         removeFromCart: (state, action) => {
             state.cartItems = state.cartItems.filter((item) => item.id !== action.payload)
-            Storage.setCartItems(state.cartItems)
+            CartStorage.setCartItems(state.cartItems)
         },
         clearCart: (state) => {
-            state.cartItems= []
-            Storage.setCartItems(state.cartItems)
+            state.cartItems = []
+            CartStorage.setCartItems(state.cartItems)
         }
 
     },
 })
 
 
-export const { localCartItem, addToCart, removeFromCart, updateCart , clearCart } = cartSlice.actions
+export const { localCartItem, addToCart, removeFromCart, updateCart, clearCart } = cartSlice.actions
 
 export default cartSlice.reducer 
