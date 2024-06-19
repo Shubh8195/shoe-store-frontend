@@ -6,7 +6,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 
-const wishlist = () => {
+const Wishlist = () => {
     const dispatch = useDispatch()
     const wishlistItem = useSelector((state) => state?.wishlist?.wishlistItems)
 
@@ -55,4 +55,4 @@ const wishlist = () => {
 }
 
 
-export default wishlist
+export default Wishlist
